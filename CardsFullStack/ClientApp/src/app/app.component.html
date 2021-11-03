@@ -3,10 +3,19 @@
   <div class="container">
 
     <button (click)="getDeck()">Get Deck</button>
+    <br />
+    {{deck_id}} <br />
+    <ng-container *ngIf="theCards">
+      <ng-container *ngFor="let card of theCards">
+        <img src="{{ card.image}}" />
+      </ng-container>
 
-    <button></button>
+    
+    <br />
 
+    <button (click)="getTwoCards()">Draw Two More</button>
 
+    </ng-container>
 
 
     <h1>The stuff below came with the VS project</h1>
