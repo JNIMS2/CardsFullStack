@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CardApiService } from './card-api.service';
+
 
 @Component({
   selector: 'app-root',
@@ -6,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  constructor(private cardapi: CardApiService) { }
+
+  getDeck() {
+    this.cardapi.getDeck(
+      result => {
+        console.log(result);
+      }
+    )
+  }
 }

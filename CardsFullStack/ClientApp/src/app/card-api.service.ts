@@ -17,7 +17,7 @@ export class CardApiService {
     );
   }
 
-  getCard(deck_id, cb) {
+  getCards(deck_id, cb) {
     this.http.get<Card[]>(`/api/cards/cards/${deck_id}`).subscribe(
       result => {
         cb(result);
