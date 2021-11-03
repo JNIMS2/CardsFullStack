@@ -10,7 +10,7 @@ namespace CardsFullStack.Models
         public string deck_id { get; set; }
         public int remaining { get; set; }
         //cards list name has to match the api name
-        public List<CardResponse> cards { get; set; }
+        public IEnumerable<CardResponse> cards { get; set; }
 
     }
 }
