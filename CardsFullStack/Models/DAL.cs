@@ -58,6 +58,8 @@ namespace CardsFullStack.Models
 
             ////step 4: save those cards into the db (we have a funct that does that)
             //foreach(CardResponse cardresp in deckresp2.cards)
+
+            
             //{
             //    saveCard(mydeck.deck_id, cardresp.image, cardresp.code, "user100");
             //}
@@ -84,15 +86,18 @@ namespace CardsFullStack.Models
             var response = await client.GetAsync($"https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=2");
             DeckResponse deckresp2 = await response.Content.ReadAsAsync<DeckResponse>();
 
-           
-            foreach (CardResponse cardresp in deckresp2.cards)
+           // IEnumerable<Card> result3 = new IEnumerable<Card>();
+            
+
+                foreach (CardResponse cardresp in deckresp2.cards)
             {
                 saveCard(deck_id, cardresp.image, cardresp.code, "user100");
             }
 
-            
+
 
             return getCardsForDeck(deck_id);
+           // return result3.ToList();
         }
 
         //===========================
