@@ -1,13 +1,14 @@
-﻿create database CardGame;
+﻿
+create database CardGame;
 use CardGame;
-create table Decks(
+create table Deck(
 deck_id varchar(20),
 is_current boolean,
 created_at datetime,
 username varchar(20),
 primary key (deck_id)
 );
-create table Cards(
+create table Card(
 id int NOT NULL auto_increment,
 deck_id varchar(20),
 image varchar(200),
