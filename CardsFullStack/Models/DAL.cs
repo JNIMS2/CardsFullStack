@@ -52,29 +52,48 @@ namespace CardsFullStack.Models
             Deck mydeck = saveDeck(deckresp.deck_id, "user100");
 
             //step 3: call the api to get 2 cards for that deck
-                     
-            response = await client.GetAsync($"https://deckofcardsapi.com/api/deck/{mydeck.deck_id}/draw/?count=2");
-            DeckResponse deckresp2 = await response.Content.ReadAsAsync<DeckResponse>();
 
-            //step 4: save those cards into the db (we have a funct that does that)
-            foreach(CardResponse cardresp in deckresp2.cards)
-            {
-                saveCard(mydeck.deck_id, cardresp.image, cardresp.code, "user100");
-            }
+            //response = await client.GetAsync($"https://deckofcardsapi.com/api/deck/{mydeck.deck_id}/draw/?count=2");
+            //DeckResponse deckresp2 = await response.Content.ReadAsAsync<DeckResponse>();
 
-            //step 5: return that list of card instances (not a list of cardResponse instances)
+            ////step 4: save those cards into the db (we have a funct that does that)
+            //foreach(CardResponse cardresp in deckresp2.cards)
+            //{
+            //    saveCard(mydeck.deck_id, cardresp.image, cardresp.code, "user100");
+            //}
 
-            //we have a func for that
+            ////step 5: return that list of card instances (not a list of cardResponse instances)
 
-            return getCardsForDeck(mydeck.deck_id);
+            ////we have a func for that
 
+            //return getCardsForDeck(mydeck.deck_id);
+            return await DrawTwoCards(mydeck.deck_id);
         }
 
         //Get More Cards
         //  Draw 2 cards (from which deck?- this will be a parameter)
         //  SAve those cards in our own DB
         //  Return those cards
+        //we have this code above steps 3-5 in itintialze deck. moved it here)
 
+
+        public static async Task<IEnumerable<Card>> DrawTwoCards(string deck_id)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://deckofcardsapi.com");
+            var response = await client.GetAsync($"https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=2");
+            DeckResponse deckresp2 = await response.Content.ReadAsAsync<DeckResponse>();
+
+           
+            foreach (CardResponse cardresp in deckresp2.cards)
+            {
+                saveCard(deck_id, cardresp.image, cardresp.code, "user100");
+            }
+
+            
+
+            return getCardsForDeck(deck_id);
+        }
 
         //===========================
         //
